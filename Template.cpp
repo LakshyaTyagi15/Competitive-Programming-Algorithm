@@ -15,9 +15,8 @@ int main()
     cin.tie(0);
     cout.tie(0);
 
-    int t;
+    int t = 1;
     cin >> t;
-    t = 1;
     while (t--) solve();
 
     return 0;
