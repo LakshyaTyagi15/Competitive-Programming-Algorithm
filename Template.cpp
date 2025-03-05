@@ -6,21 +6,10 @@ using ll = long long;
 const ll mod = 1e9 + 7;
 const ll modd = 998244353;
 
-void input(vector<ll>&arr) {
-    for(auto &i:arr) {
-        cin>>i;
-    }
-}
-void output(vector<ll>&arr) {
-    for(auto &i:arr) {
-        cout<<i<<" ";
-    }
-    cout<<"\n";
-}
-
 void solve() {
   
 }
+
 int main()
 {
     ios::sync_with_stdio(0);
