@@ -23,6 +23,7 @@ vector<ll> dijkstra(ll v, vector<vector<ll>> adj[], ll s)
                 value = dist[i];
             }
         }
+        if (node == -1) break;
         explored[node] = 1;
         for (ll j = 0; j < adj[node].size(); j++)
         {
