@@ -116,12 +116,12 @@ struct Modular
         return power(mod - 2);
     }
 
-    friend constexpr Modular operator+(const Modular &a, const Modular &b) { return Modular(a) += b; }
-    friend constexpr Modular operator-(const Modular &a, const Modular &b) { return Modular(a) -= b; }
-    friend constexpr Modular operator*(const Modular &a, const Modular &b) { return Modular(a) *= b; }
-    friend constexpr Modular operator/(const Modular &a, const Modular &b) { return Modular(a) /= b; }
-    friend constexpr bool operator==(const Modular &a, const Modular &b) { return a.x == b.x; }
-    friend constexpr bool operator!=(const Modular &a, const Modular &b) { return a.x != b.x; }
+    friend constexpr Modular operator+(const Modular &a, T &b) { return Modular(a) += b; }
+    friend constexpr Modular operator-(const Modular &a, T &b) { return Modular(a) -= b; }
+    friend constexpr Modular operator*(const Modular &a, T &b) { return Modular(a) *= b; }
+    friend constexpr Modular operator/(const Modular &a, T &b) { return Modular(a) /= b; }
+    friend constexpr bool operator==(const Modular &a, T &b) { return a.x == b.x; }
+    friend constexpr bool operator!=(const Modular &a, T &b) { return a.x != b.x; }
 
     Modular power(Modular a, T n)
     {
@@ -145,6 +145,7 @@ struct Modular
     {
         return x != 0;
     }
+    constexpr operator T() const { return x; }
 };
 using mll = Modular<ll, ll(1e9 + 7)>;
 vector<mll> fact;
@@ -160,15 +161,15 @@ void f(ll n = 1e6 + 10)
     }
 }
 
-template <typename T>
-T p(T n, T r)
+template <typename T1, typename T2>
+ll p(T1 n, T2 r)
 {
     if (r > n)
         return 0;
     return fact[n] / (fact[n - r]);
 }
-template <typename T>
-T c(T n, T r)
+template <typename T1, typename T2>
+ll c(T1 n, T2 r)
 {
     if (r > n)
         return 0;
