@@ -20,20 +20,20 @@ template <typename T, T mod>
 struct Modular
 {
     T x;
-    Modular() { x = 0; }
-    Modular(T xx)
+    constexpr Modular() { x = 0; }
+    constexpr Modular(T y)
     {
-        x = xx % mod;
+        x = y % mod;
         if (x < 0)
             x += mod;
     }
 
-    T val()
+    constexpr T val()
     {
         return x = 0;
     }
 
-    Modular &operator++()
+    constexpr Modular &operator++()
     {
         x++;
         if (x == mod)
@@ -41,7 +41,7 @@ struct Modular
         return *this;
     }
 
-    Modular &operator--()
+    constexpr Modular &operator--()
     {
         if (x == 0)
             x = mod;
@@ -49,21 +49,21 @@ struct Modular
         return *this;
     }
 
-    Modular operator++(int)
+    constexpr Modular operator++(int)
     {
         Modular res = *this;
         ++*this;
         return res;
     }
 
-    Modular operator--(int)
+    constexpr Modular operator--(int)
     {
         Modular res = *this;
         --*this;
         return res;
     }
 
-    Modular &operator+=(const Modular &b)
+    constexpr Modular &operator+=(const Modular &b)
     {
         x += b.x;
         if (x >= mod)
@@ -71,7 +71,7 @@ struct Modular
         return *this;
     }
 
-    Modular &operator-=(const Modular &b)
+    constexpr Modular &operator-=(const Modular &b)
     {
         x -= b.x;
         if (x < 0)
@@ -79,7 +79,7 @@ struct Modular
         return *this;
     }
 
-    Modular &operator*=(const Modular &b)
+    constexpr Modular &operator*=(const Modular &b)
     {
         long long z = x;
         z *= b.x;
@@ -87,17 +87,19 @@ struct Modular
         x = z;
         return *this;
     }
-    Modular operator+() const { return *this; }
-    Modular operator-() const { return Modular() - *this; }
+    constexpr Modular operator+() const { return *this; }
+    constexpr Modular operator-() const { return Modular() - *this; }
 
-    Modular &operator/=(const Modular &b)
+    constexpr Modular &operator/=(const Modular &b)
     {
         return *this = *this * b.inv();
     }
 
-    Modular power(T n) const
+    constexpr Modular power(T n) const
     {
         Modular y = *this, r = 1;
+        if (n < 0)
+            return (y.inv()).power(-n);
         while (n)
         {
             if (n & 1)
@@ -109,21 +111,29 @@ struct Modular
         }
         return r;
     }
-    Modular inv() const
+    constexpr Modular inv() const
     {
         return power(mod - 2);
     }
 
-    friend Modular operator+(const Modular &a, const Modular &b) { return Modular(a) += b; }
-    friend Modular operator-(const Modular &a, const Modular &b) { return Modular(a) -= b; }
-    friend Modular operator*(const Modular &a, const Modular &b) { return Modular(a) *= b; }
-    friend Modular operator/(const Modular &a, const Modular &b) { return Modular(a) /= b; }
-    friend bool operator==(const Modular &a, const Modular &b) { return a.x == b.x; }
-    friend bool operator!=(const Modular &a, const Modular &b) { return a.x != b.x; }
+    friend constexpr Modular operator+(const Modular &a, const Modular &b) { return Modular(a) += b; }
+    friend constexpr Modular operator-(const Modular &a, const Modular &b) { return Modular(a) -= b; }
+    friend constexpr Modular operator*(const Modular &a, const Modular &b) { return Modular(a) *= b; }
+    friend constexpr Modular operator/(const Modular &a, const Modular &b) { return Modular(a) /= b; }
+    friend constexpr bool operator==(const Modular &a, const Modular &b) { return a.x == b.x; }
+    friend constexpr bool operator!=(const Modular &a, const Modular &b) { return a.x != b.x; }
 
     Modular power(Modular a, T n)
     {
         return a.power(n);
+    }
+
+    friend istream &operator>>(istream &is, const Modular &m)
+    {
+        T y;
+        is >> y;
+        m = Modular(y);
+        return is;
     }
 
     friend ostream &operator<<(ostream &os, const Modular &m)
@@ -131,7 +141,7 @@ struct Modular
         os << m.x;
         return os;
     }
-    explicit operator bool() const
+    explicit constexpr operator bool() const
     {
         return x != 0;
     }
