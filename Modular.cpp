@@ -128,7 +128,7 @@ struct Modular
         return a.power(n);
     }
 
-    friend istream &operator>>(istream &is, const Modular &m)
+    friend istream &operator>>(istream &is, Modular &m)
     {
         T y;
         is >> y;
