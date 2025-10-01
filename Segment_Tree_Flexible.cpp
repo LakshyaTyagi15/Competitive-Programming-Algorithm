@@ -106,7 +106,7 @@ Info operator+(const Info &a, const Info &b) {
     return Info(a.val + b.val);                // Use max, min, gcd, lcm, etc as per requirement like max(a.val, b.val)
 }
 Info operator += (Info &a, const Info &b) {
-    a.val = a.val + b.val;                   // Similar to + operator
+    a.val = a.val + b.val;                     // If we have to change value then a.val = b.val else handle like + operator;
     return a;
 }
 
@@ -117,7 +117,7 @@ struct Tag {
 };
 
 Tag operator += (Tag &a, const Tag &b) {
-    a.val = a.val + b.val;                   // Similar to + operator of Info
+    a.val = a.val + b.val;                   // If we have to change value then a.val = b.val else handle like + operator of Info;
     return a;
 }
 
