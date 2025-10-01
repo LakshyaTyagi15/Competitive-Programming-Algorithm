@@ -40,9 +40,14 @@ struct SegmentTree {
         get<0>(seg[i]) = get<0>(seg[2 * i + 1]) + get<0>(seg[2 * i + 2]);
     }
 
+    ll query(ll x) {
+        return query(0, 0, n - 1, x, x);
+    }
+
     ll query(ll x, ll y) {
         return query(0, 0, n - 1, x, y);
     }
+    
     Info query(ll i, ll l, ll r, ll x, ll y) {
 
         if (get<1>(seg[i]) != 0) {
