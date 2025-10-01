@@ -23,9 +23,9 @@ struct Fenwick {
     ll n;
     vector<T> bit;
 
-    Fenwick(ll n = 0) {
-        this->n = n;
-        bit.assign(n + 1, T(0));
+    Fenwick(ll size = 0) {
+        this->n = size;
+        bit.assign(size + 1, T(0));
     }
 
     template<typename U>
