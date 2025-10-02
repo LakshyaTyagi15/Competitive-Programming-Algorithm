@@ -58,7 +58,7 @@ struct Matrix {
     }
 
     Matrix operator *= (const Matrix &b) {
-        assert(n == b.n && m == b.m);
+        assert(m == b.n);
         *this = (*this) * b;
         return *this;
     }
