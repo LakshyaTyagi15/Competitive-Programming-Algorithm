@@ -133,8 +133,8 @@ Tag<T> operator+=(Tag<T>& a, const Tag<T>& b) {
     return a;
 }
 
-template <typename T, typename U>
-SegmentTree(const vector<T>&) -> SegmentTree<T, U>;
+template <typename T>
+SegmentTree(const vector<T>&) -> SegmentTree<Info<T>, Tag<T>>;
 
 void solve() {}
 
