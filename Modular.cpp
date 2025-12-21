@@ -7,20 +7,19 @@
 #else
 #define dbg(x...)
 #endif
-
+#define int long long
 using namespace std;
 using namespace __gnu_pbds;
 
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
-using ll = long long;
-const ll mod = 1e9 + 7;
-const ll modd = 998244353;
-
-template <typename T, T mod>
+template <typename F>
 struct Modular
 {
+    using T = typename F::value_type;
+    static constexpr T mod = F::value;
+
     T x;
     constexpr Modular() { x = 0; }
     constexpr Modular(T y)
@@ -47,13 +46,13 @@ struct Modular
         x--;
         return *this;
     }
-    constexpr Modular operator++(int)
+    constexpr Modular operator++(int32_t)
     {
         Modular res = *this;
         ++*this;
         return res;
     }
-    constexpr Modular operator--(int)
+    constexpr Modular operator--(int32_t)
     {
         Modular res = *this;
         --*this;
@@ -157,32 +156,35 @@ struct Modular
     constexpr operator T() const { return x; }
 };
 
-using mll = Modular<ll, mod>;
-vector<mll> fact, invfact;
+constexpr int mod = 1e9 + 7;
+constexpr int modd = 998244353;
+using Int = Modular<integral_constant<decay<decltype(modd)>::type, modd>>;
 
-mll modInverse(mll a)
+vector<Int> fact, invfact;
+
+Int modInverse(Int a)
 {
     return a.inv();
 }
 
-void f(ll n = 2e5 + 10)
+void f(int n = 2e6 + 10)
 {
     fact.resize(n + 1);
     invfact.resize(n + 1);
     fact[0] = 1;
-    for (ll i = 1; i <= n; ++i)
+    for (int i = 1; i <= n; ++i)
     {
         fact[i] = fact[i - 1] * i;
     }
     invfact[n] = fact[n].inv();
-    for (ll i = n; i > 0; i--)
+    for (int i = n; i > 0; i--)
     {
         invfact[i - 1] = invfact[i] * i;
     }
 }
 
 template <typename T1, typename T2>
-mll p(T1 n, T2 r)
+Int p(T1 n, T2 r)
 {
     if (r > n)
         return 0;
@@ -190,7 +192,7 @@ mll p(T1 n, T2 r)
 }
 
 template <typename T1, typename T2>
-mll c(T1 n, T2 r)
+Int c(T1 n, T2 r)
 {
     if (r == n)
         return 1;
@@ -203,7 +205,7 @@ void solve()
 {
 }
 
-int main()
+int32_t main()
 {
     ios::sync_with_stdio(0);
     cin.tie(0);
