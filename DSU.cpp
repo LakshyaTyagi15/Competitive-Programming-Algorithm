@@ -1,60 +1,44 @@
-#include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
 
-using ll = long long;
-const ll mod = 1e9 + 7;
-const ll modd = 998244353;
-
 class DSU {
 public:
-    vector<ll> parent, rank;
+    vector<int> parent, weight;
 
-    DSU(ll n) {
+    DSU(int n) {
         parent.resize(n + 1);
-        rank.resize(n + 1, 0);
-        for (ll i = 1; i <= n; ++i)
+        weight.resize(n + 1, 1);
+        for (int i = 1; i <= n; i++)
             parent[i] = i;
     }
 
-    ll find(ll x) {
+    int find(int x) {
         if (parent[x] != x)
             parent[x] = find(parent[x]);
         return parent[x];
     }
 
-    void join(ll a, ll b) {
-        ll rootA = find(a);
-        ll rootB = find(b);
-        if (rootA != rootB) {
-            if (rank[rootA] < rank[rootB]) {
-                swap(rootA, rootB);
-            }
-            parent[rootB] = rootA;
-            if (rank[rootA] == rank[rootB])
-                rank[rootA]++;
+    void join(int a, int b) {
+        a = find(a);
+        b = find(b);
+        if (a != b) {
+            if (weight[a] < weight[b])
+                swap(a, b);
+            parent[b] = a;
+            weight[a] += weight[b];
         }
     }
 
-    bool same_set(ll a, ll b) {
+    bool same(int a, int b) {
         return find(a) == find(b);
+    }
+
+    int size(int x) {
+        return weight[find(x)];
     }
 };
 
-
-void solve() {
-
-}
 int main()
 {
-    ios::sync_with_stdio(0);
-    cin.tie(0);
-    cout.tie(0);
-
-    int t = 1;
-    cin >> t;
-
-    while (t--) solve();
-
     return 0;
 }
