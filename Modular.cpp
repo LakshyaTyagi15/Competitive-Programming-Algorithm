@@ -157,6 +157,6 @@ constexpr int modd = 998244353;
 using Int = Modular<integral_constant<decay<decltype(mod)>::type, mod>>;
 
 template <typename F>
-Int power(F a, int64_t n) { return Modular(a).power(n); }
+Int power(F a, int64_t n) { return Int(a).power(n); }
 
 int main() { return 0; }
