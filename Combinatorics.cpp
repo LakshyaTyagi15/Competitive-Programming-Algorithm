@@ -17,7 +17,12 @@ struct Comb {
         _inv.resize(m + 1);
         for (int i = n + 1; i <= m; i++) {
             _fact[i] = _fact[i - 1] * i;
-            _inv[i] = modInverse(Int(i));
+            if (i == 1) {
+                _inv[i] = Int(1);
+            }
+            else {
+                _inv[i] = Int(Int::mod - Int::mod / i) * _inv[Int::mod % i];
+            }
             _invfact[i] = _invfact[i - 1] * _inv[i];
         }
         n = m;
